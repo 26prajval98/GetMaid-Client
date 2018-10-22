@@ -1,1 +1,1 @@
-## GetMaid React App
+## GetMaid Client
