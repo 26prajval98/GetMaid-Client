@@ -1,5 +1,5 @@
 const helper = (state = {
-    numbers: [1, 2, 3],
+    numbers: [],
 }, action) => {
     switch (action.type) {
         case "HELPER": {
