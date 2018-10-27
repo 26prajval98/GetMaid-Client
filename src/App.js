@@ -2,21 +2,53 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 import helper from './components/helper';
-import Store from "./stores"
-import { Provider } from 'react-redux'
+
+import { connect } from "react-redux"
+import { setLoader, unsetLoader } from "./actions/index"
+import Loader from "./components/loader";
+
+function mapStateToProps(state) {
+	return {
+		isLoading: state.loader.isLoading
+	}
+}
+
+function render(isLoading) {
+	if (!isLoading)
+		return (
+			<div className="App">
+				<Router>
+					<Route exact path="/" component={helper} />
+				</Router>
+			</div>
+		)
+	else
+		return (
+			<Loader />
+		)
+}
 
 class App extends Component {
+
+	componentDidMount(){
+		window.onkeydown = (e) => {
+			console.log(e)
+            if (e.key === "s") {
+				setLoader()
+			}
+			else if(e.key === "c"){
+				unsetLoader()
+			}
+        }
+	}
+
 	render() {
 		return (
-			<Provider store={Store}>
-				<div className="App">
-					<Router>
-						<Route exact path="/" component={helper} />
-					</Router>
-				</div>
-			</Provider>
+			<div>
+				{render(this.props.isLoading)}
+			</div>
 		);
 	}
 }
 
-export default App;
+export default connect(mapStateToProps)(App);

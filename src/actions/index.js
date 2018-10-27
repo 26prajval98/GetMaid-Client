@@ -6,6 +6,20 @@ const helper = ()=>{
     })
 }
 
+const setLoader = ()=>{
+    return store.dispatch({
+        type : "SET_LOADER"
+    })
+}
+
+const unsetLoader = ()=>{
+    return store.dispatch({
+        type : "UNSET_LOADER"
+    })
+}
+
 export {
-    helper
+    helper,
+    setLoader,
+    unsetLoader
 }

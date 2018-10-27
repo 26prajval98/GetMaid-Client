@@ -12,4 +12,6 @@ const helper = (state = {
     }
 }
 
-export default helper
+export {
+    helper
+}
