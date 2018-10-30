@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 
 import { connect } from "react-redux"
-import { setLoader, unsetLoader } from "./actions/index"
+import { loader } from "./actions/index"
+
 import Loader from "./components/loader";
+import Index from "./components/main"
 
 function mapStateToProps(state) {
 	return {
@@ -17,8 +19,7 @@ function render(isLoading) {
 		return (
 			<div className="App">
 				<Router>
-					<div>Hi</div>
-					{/* <Route exact path="/" component={helper} /> */}
+					<Route exact path="/" component={Index}></Route>
 				</Router>
 			</div>
 		)
@@ -34,10 +35,10 @@ class App extends Component {
 		window.onkeydown = (e) => {
 			console.log(e)
             if (e.key === "s") {
-				setLoader()
+				loader.setLoader()
 			}
 			else if(e.key === "c"){
-				unsetLoader()
+				loader.unsetLoader()
 			}
         }
 	}
