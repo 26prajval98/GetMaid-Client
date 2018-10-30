@@ -5,7 +5,9 @@ const main = (state = {
         EmailOrPhone : "",
         Password : "",
         IsMaid : 0
-    }
+    },
+    success : true,
+    msg : ""
 }, action) => {
     var loginDetails 
     switch (action.type) {
@@ -25,7 +27,7 @@ const main = (state = {
             return { ...state, login : false, signup : false}
         }
         
-        case "UPDATE_LOGIN_EMAIL_PW" : {
+        case "UPDATE_LOGIN_EMAIL_PH" : {
             loginDetails = {...state.loginDetails}
             loginDetails.EmailOrPhone = action.txt
             return { ...state, loginDetails}
@@ -41,6 +43,14 @@ const main = (state = {
             loginDetails = {...state.loginDetails}
             loginDetails.IsMaid = loginDetails.IsMaid === 0 ? 1 : 0
             return { ...state, loginDetails}
+        }
+
+        case "SET_SUCCESS" : {
+            return { ...state, success : action.val}
+        }
+
+        case "SET_MSG" : {
+            return { ...state, msg : action.msg}
         }
 
         default : 
