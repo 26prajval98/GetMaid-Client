@@ -24,9 +24,32 @@ const closeSignup = ()=>{
     })
 }
 
+const updateLoginEmailOrPh = (e)=>{
+    return store.dispatch({
+        type : "UPDATE_LOGIN_EMAIL_PH",
+        txt : e.target.value
+    })
+}
+
+const updateLoginPw = (e)=>{
+    return store.dispatch({
+        type : "UPDATE_LOGIN_PW",
+        txt : e.target.value
+    })
+}
+
+const updateLoginIsMaid = (e)=>{
+    return store.dispatch({
+        type : "UPDATE_LOGIN_ISMAID",
+    })
+}
+
 export {
     showLogIn,
     closeLogIn,
     showSignup,
-    closeSignup    
+    closeSignup,
+    updateLoginEmailOrPh,
+    updateLoginPw,
+    updateLoginIsMaid
 }

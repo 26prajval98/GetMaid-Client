@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 
 import { connect } from "react-redux"
-import { loader } from "./actions/index"
 
 import Loader from "./components/loader";
 import Index from "./components/main"
@@ -30,19 +29,6 @@ function render(isLoading) {
 }
 
 class App extends Component {
-
-	componentDidMount(){
-		window.onkeydown = (e) => {
-			console.log(e)
-            if (e.key === "s") {
-				loader.setLoader()
-			}
-			else if(e.key === "c"){
-				loader.unsetLoader()
-			}
-        }
-	}
-
 	render() {
 		return (
 			<div>
