@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import helper from './components/helper';
 
 import { connect } from "react-redux"
 import { setLoader, unsetLoader } from "./actions/index"
@@ -18,7 +17,8 @@ function render(isLoading) {
 		return (
 			<div className="App">
 				<Router>
-					<Route exact path="/" component={helper} />
+					<div>Hi</div>
+					{/* <Route exact path="/" component={helper} /> */}
 				</Router>
 			</div>
 		)
