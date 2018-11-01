@@ -1,7 +1,10 @@
-import store from '../stores'
-import * as loader from "./loader"
 import qs from "querystring"
 import axios from "axios"
+
+
+import store from '../stores'
+import * as loader from "./loader"
+
 import setCookie, { getCookie } from "../methods/cookies"
 import url from '../methods/config'
 
@@ -63,20 +66,36 @@ const setMsg = (msg) => {
     })
 }
 
-const userLogin = () => {
-    store.dispatch(() => {
-        loader.setLoader()
+const setMaid = () => {
+    console.log("Hurray")
+    return store.dispatch({
+        type: "SET_MAID"
+    })
+}
 
-        axios.post(url + "login",
-            qs.stringify(store.getState().main.loginDetails),
+const setHirer = () => {
+    return store.dispatch({
+        type: "SET_HIRER"
+    })
+}
+
+const setUA = () => {
+    return store.dispatch({
+        type: "SET_UA"
+    })
+}
+
+const auth = () => {
+    axios.post(url + "login",
+        qs.stringify(store.getState().main.loginDetails),
+        {
+            headers:
             {
-                headers:
-                {
-                    'cache-control': 'no-cache',
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-            }
-        )
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        }
+    )
         .then(res => {
             var jb = res.data
             if (!jb.success) {
@@ -88,17 +107,19 @@ const userLogin = () => {
                 setMsg("")
                 setCookie(jb.msg, 4)
                 axios.get(url + "ismaid", {
-                    headers : {
-                        Authorization : "Bearer " + getCookie("token")
+                    headers: {
+                        Authorization: "Bearer " + getCookie("token")
                     }
                 })
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.success){
-                        window.location.href = "/maid"
+                    .then(res => {
+                        if (res.data.success) {
+                            setMaid()
+                        }
+                        else {
+                            setHirer()
+                        }
                         loader.unsetLoader()
-                    }
-                })
+                    })
             }
         })
         .catch(err => {
@@ -106,6 +127,12 @@ const userLogin = () => {
             alert("Something went wrong")
             loader.unsetLoader()
         })
+}
+
+const userLogin = () => {
+    store.dispatch(() => {
+        loader.setLoader()
+        auth()
     })
 }
 
@@ -117,5 +144,9 @@ export {
     updateLoginEmailOrPh,
     updateLoginPw,
     updateLoginIsMaid,
-    userLogin
+    userLogin,
+    auth,
+    setMaid,
+    setHirer,
+    setUA
 }

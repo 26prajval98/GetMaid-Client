@@ -6,6 +6,7 @@ import { connect } from "react-redux"
 
 import Loader from "./components/loader";
 import Index from "./components/main"
+import * as Maid from "./components/maid"
 
 function mapStateToProps(state) {
 	return {
@@ -18,7 +19,10 @@ function render(isLoading) {
 		return (
 			<div className="App">
 				<Router>
-					<Route exact path="/" component={Index}></Route>
+					<div>
+						<Route exact path="/" component={Index} />
+						<Route exact path="/maid" component={Maid.Home} />
+					</div>
 				</Router>
 			</div>
 		)

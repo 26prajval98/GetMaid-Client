@@ -4,8 +4,11 @@ import logger from 'redux-logger'
 
 import reducer from '../reducers'
 
-export default createStore(
+var store = createStore(
     reducer
     ,
     applyMiddleware(thunk, logger)
 )
+
+window.store = store
+export default store
