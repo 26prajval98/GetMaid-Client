@@ -1,6 +1,8 @@
 import store from '../stores'
 import * as loader from "./loader"
-import request from "request"
+import qs from "querystring"
+import axios from "axios"
+import setCookie from "../methods/cookies"
 
 const showLogIn = () => {
     return store.dispatch({
@@ -40,7 +42,7 @@ const updateLoginPw = (e) => {
     })
 }
 
-const updateLoginIsMaid = (e) => {
+const updateLoginIsMaid = () => {
     return store.dispatch({
         type: "UPDATE_LOGIN_ISMAID",
     })
@@ -63,28 +65,36 @@ const setMsg = (msg) => {
 const userLogin = () => {
     store.dispatch(() => {
         loader.setLoader()
-        console.log(store.getState().main.loginDetails)
-        var options = {
-            method: 'POST',
-            url: 'http://localhost:3000/login',
-            headers:
-            {
-                'Postman-Token': '76cfd1b4-b966-4844-a2e9-91329bb148b0',
-                'cache-control': 'no-cache',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            form: { answer: '42' }
-        };
 
-        request(options, function (error, response, body) {
-            if (error) throw new Error(error);
-            var jb = JSON.parse(body)            
-            if(!jb.success){
+        axios.post("http://localhost:3000/login",
+            qs.stringify(store.getState().main.loginDetails),
+            {
+                headers:
+                {
+                    'cache-control': 'no-cache',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }
+        )
+        .then(res => {
+            console.log(res.headers)
+            var jb = res.data
+            if (!jb.success) {
                 setSuccess(false)
                 setMsg(jb.msg)
             }
+            else {
+                setSuccess(true)
+                setMsg("")
+                setCookie(jb.msg, 4)
+            }
             loader.unsetLoader()
-        });
+        })
+        .catch(err => {
+            console.log(err)
+            alert("Something went wrong")
+            loader.unsetLoader()
+        })
     })
 }
 

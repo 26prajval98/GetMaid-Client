@@ -16,7 +16,6 @@ function mapStateToProps(state) {
 }
 
 function showMsg(msg, success) {
-    console.log(msg, success)
     if (!success) {
         return (
             <div>
@@ -42,7 +41,7 @@ function renderStuff(props) {
                         <input value={props.loginDetails.EmailOrPhone} placeholder="Email or Phone number" onChange={(e) => actionMain.updateLoginEmailOrPh(e)} className="w3-input w3-center w3-margin-top" style={{ outline: "none" }} />
                         <input value={props.loginDetails.Password} placeholder="Password" type="password" onChange={(e) => actionMain.updateLoginPw(e)} className="w3-input w3-center w3-margin-top" style={{ outline: "none" }} />
                         <div className="W3-margin w3-padding">
-                            <input type="checkbox" className="w3-check" onClick={() => { actionMain.updateLoginIsMaid() }} defaultChecked={false} /> <label>Maid</label>
+                            <input type="checkbox" className="w3-check" onChange={() => { actionMain.updateLoginIsMaid() }} checked={props.loginDetails.IsMaid}/> <label>Maid</label>
                         </div>
                         <button className="w3-margin w3-padding w3-button w3-large w3-green" onClick={() => actionMain.userLogin()}>Login</button>
                     </div>

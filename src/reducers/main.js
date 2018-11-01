@@ -2,9 +2,9 @@ const main = (state = {
     login : true,
     signup : true,
     loginDetails : {
-        EmailOrPhone : "",
-        Password : "",
-        IsMaid : 0
+        EmailOrPhone : "9481315398",
+        Password : "abcde12345",
+        IsMaid : 1
     },
     success : true,
     msg : ""
