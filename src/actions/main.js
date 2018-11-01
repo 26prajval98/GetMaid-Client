@@ -2,7 +2,8 @@ import store from '../stores'
 import * as loader from "./loader"
 import qs from "querystring"
 import axios from "axios"
-import setCookie from "../methods/cookies"
+import setCookie, { getCookie } from "../methods/cookies"
+import url from '../methods/config'
 
 const showLogIn = () => {
     return store.dispatch({
@@ -66,7 +67,7 @@ const userLogin = () => {
     store.dispatch(() => {
         loader.setLoader()
 
-        axios.post("http://localhost:3000/login",
+        axios.post(url + "login",
             qs.stringify(store.getState().main.loginDetails),
             {
                 headers:
@@ -77,7 +78,6 @@ const userLogin = () => {
             }
         )
         .then(res => {
-            console.log(res.headers)
             var jb = res.data
             if (!jb.success) {
                 setSuccess(false)
@@ -87,8 +87,19 @@ const userLogin = () => {
                 setSuccess(true)
                 setMsg("")
                 setCookie(jb.msg, 4)
+                axios.get(url + "ismaid", {
+                    headers : {
+                        Authorization : "Bearer " + getCookie("token")
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    if(res.data.success){
+                        window.location.href = "/maid"
+                        loader.unsetLoader()
+                    }
+                })
             }
-            loader.unsetLoader()
         })
         .catch(err => {
             console.log(err)
