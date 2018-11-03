@@ -67,7 +67,6 @@ const setMsg = (msg) => {
 }
 
 const setMaid = () => {
-    console.log("Hurray")
     return store.dispatch({
         type: "SET_MAID"
     })
@@ -85,7 +84,34 @@ const setUA = () => {
     })
 }
 
+const resetLogin = () => {
+    return store.dispatch({
+        type: "RESET_LOGIN"
+    })
+}
+
 const auth = () => {
+    axios.get(url + "ismaid", {
+        headers: {
+            Authorization: "Bearer " + getCookie("token")
+        }
+    })
+        .then(res => {
+            if (res.data.success) {
+                setMaid()
+            }
+            else {
+                setHirer()
+            }
+            resetLogin()
+        })
+        .catch(err => {
+            console.log("Something Went Wrong. Please Try Later")
+        })
+}
+
+const loginAuth = () => {
+    loader.setLoader()
     axios.post(url + "login",
         qs.stringify(store.getState().main.loginDetails),
         {
@@ -106,24 +132,11 @@ const auth = () => {
                 setSuccess(true)
                 setMsg("")
                 setCookie(jb.msg, 4)
-                axios.get(url + "ismaid", {
-                    headers: {
-                        Authorization: "Bearer " + getCookie("token")
-                    }
-                })
-                    .then(res => {
-                        if (res.data.success) {
-                            setMaid()
-                        }
-                        else {
-                            setHirer()
-                        }
-                        loader.unsetLoader()
-                    })
+                auth()
             }
+            loader.unsetLoader()
         })
         .catch(err => {
-            console.log(err)
             alert("Something went wrong")
             loader.unsetLoader()
         })
@@ -132,7 +145,7 @@ const auth = () => {
 const userLogin = () => {
     store.dispatch(() => {
         loader.setLoader()
-        auth()
+        loginAuth()
     })
 }
 
@@ -148,5 +161,5 @@ export {
     auth,
     setMaid,
     setHirer,
-    setUA
+    setUA,
 }

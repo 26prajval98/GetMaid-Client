@@ -3,5 +3,5 @@ import * as main from "./main"
 
 export{
     loader,
-    main
+    main,
 }

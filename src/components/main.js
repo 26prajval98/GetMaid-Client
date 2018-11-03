@@ -15,7 +15,7 @@ function mapStateToProps(state) {
         loginDetails: state.main.loginDetails,
         success: state.main.success,
         msg: state.main.msg,
-        user: state.user.user
+        user: state.client.user
     }
 }
 
@@ -49,7 +49,7 @@ function renderStuff(props) {
         if (props.login) {
             return (
                 <div className="w3-modal w3-show">
-                    <div className="w3-modal-content w3-animate-top w3-card-4">
+                    <div className="w3-modal-content w3-animate-top w3-card-4 w3-center">
                         <header className="w3-container">
                             <span onClick={() => actionMain.closeLogIn()} className="w3-button w3-display-topright w3-button-white w3-hover-none">&times;</span>
                         </header>

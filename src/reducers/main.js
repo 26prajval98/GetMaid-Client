@@ -1,10 +1,13 @@
 const main = (state = {
-    login : true,
-    signup : true,
+    login : false,
+    signup : false,
     loginDetails : {
-        EmailOrPhone : "9481315398",
-        Password : "abcde12345",
-        IsMaid : 1
+        // EmailOrPhone : "9481315398",
+        // Password : "abcde12345",
+        // IsMaid : 1
+        EmailOrPhone : "",
+        Password : "",
+        IsMaid : 0
     },
     success : true,
     msg : ""
@@ -51,6 +54,18 @@ const main = (state = {
 
         case "SET_MSG" : {
             return { ...state, msg : action.msg}
+        }
+
+        case "RESET_LOGIN" : {
+            loginDetails = {
+                // EmailOrPhone : "9481315398",
+                // Password : "abcde12345",
+                // IsMaid : 1
+                EmailOrPhone : "",
+                Password : "",
+                IsMaid : 0
+            }
+            return { ...state, loginDetails}
         }
 
         default : 
