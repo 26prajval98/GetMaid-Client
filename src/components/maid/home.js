@@ -18,7 +18,8 @@ function mapStateToProps(state) {
         services : state.maid.services,
         addService : state.maid.addService,
         showSettings : state.maid.showSettings,
-        editable : state.maid.editable
+        editable : state.maid.editable,
+        addr : state.maid.addr
     }
 }
 
@@ -39,7 +40,7 @@ function RenderFunctionalComponenets(props) {
                     <span className="w3-right w3-tiny w3-text-red w3-margin">Go Online</span>
                 </div>
                 <div className="w3-cell-row w3-margin">
-                    <User details={props.info.details} settings={props.info.showSettings} editable={props.info.editable}/>
+                    <User details={props.info.details} settings={props.info.showSettings} editable={props.info.editable} addr={props.info.addr}/>
                     <Service pending={props.info.pending} services={props.info.services} add={props.info.addService}/>
                 </div>
             </div>

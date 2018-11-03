@@ -47,7 +47,9 @@ const maid = (state = {
             return { ...state, showSettings }
         case "SET_EDITABLE":
             editable = true
-            return { ...state, editable }
+            details = {...state.details}
+            details.Pincode = pincodes[0]
+            return { ...state, editable, details }
         case "DONE_EDITABLE":
             editable = false
             return { ...state, editable }
@@ -67,9 +69,10 @@ const maid = (state = {
             details.Email = action.Email
             return { ...state, details }
         case "CHANGE_ADDRESS":
-            addr = locality[action.idx]
+            addr = action.idx
             details = { ...state.details }
-            details.Pincode = pincodes[action.idx]
+            console.log(locality.indexOf(action.idx))
+            details.Pincode = pincodes[locality.indexOf(action.idx)]
             return { ...state, details, addr }
 
         default:

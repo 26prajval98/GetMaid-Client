@@ -5,7 +5,6 @@ import { unsetLoader } from './loader';
 import { deleteAll } from '../methods/cookies';
 
 const getDetails = (details) => {
-    console.log(details)
     return store.dispatch({
         type: "GET_DETAILS",
         details
@@ -78,14 +77,6 @@ const getAllMaid = ()=>{
     })
 }
 
-
-const changeAddService = (addService)=>{
-    return store.dispatch({
-        type : "CHANGE_ADD_SERVICE",
-        addService
-    })
-}
-
 const deleteService = (id)=>{
     httpDelete("maidservices?i="+id)
     .then( r => {
@@ -108,6 +99,41 @@ const addService = ()=>{
     })
 }
 
+
+const changeAddService = (addService)=>{
+    return store.dispatch({
+        type : "CHANGE_ADD_SERVICE",
+        addService
+    })
+}
+
+const changeName = (Name)=>{
+    return store.dispatch({
+        type : "CHANGE_NAME",
+        Name
+    })
+}
+const changePhone = (Phone)=>{
+    return store.dispatch({
+        type : "CHANGE_PHONE",
+        Phone
+    })
+}
+
+const changeEmail = (Email)=>{
+    return store.dispatch({
+        type : "CHANGE_EMAIL",
+        Email
+    })
+}
+
+const changeAddr = (idx)=>{
+    return store.dispatch({
+        type : "CHANGE_ADDRESS",
+        idx
+    })
+}
+
 export {
     getDetails,
     getServices,
@@ -116,10 +142,14 @@ export {
     toggleOnline,
     getAllMaid,
     deleteService,
-    changeAddService,
     addService,
     showSettings,
     closeSettings,
     showEditable,
-    doneEditable
+    doneEditable,
+    changeAddService,
+    changeName,
+    changePhone,
+    changeEmail,
+    changeAddr
 }
