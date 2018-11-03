@@ -11,7 +11,6 @@ const headers = {
 }
 
 const httpGet = (path) => {
-    console.log(getCookie("token"))
     return axios.get(url + path, {
         headers : {
             Authorization: "Bearer " + getCookie("token"),

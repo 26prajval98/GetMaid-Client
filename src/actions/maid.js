@@ -65,7 +65,6 @@ const doneEditable = () => {
 const getAllMaid = ()=>{
     Axios.all([httpGet("maidservices"), httpGet("details")])
     .then(Axios.spread((services, details)=>{
-        console.log(services.data)
         getServices(services.data.services)
         getDetails(details.data)
         unsetLoader()
