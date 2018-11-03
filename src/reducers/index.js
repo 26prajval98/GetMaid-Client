@@ -2,37 +2,39 @@ import { combineReducers } from 'redux'
 
 import { loader } from './loader'
 import { main } from './main'
+import { maid } from './maid'
+
 
 const client = (state = {
-    user : "UA",
-    dim : {
-        h : window.innerHeight,
-        w : window.innerWidth
+    user: "UA",
+    dim: {
+        h: window.innerHeight,
+        w: window.innerWidth
     }
 }, action) => {
     switch (action.type) {
         case "SET_MAID": {
-            return { ...state, user : "MAID"}
+            return { ...state, user: "MAID" }
         }
 
         case "SET_HIRER": {
-            return { ...state, user : "HIRER"}
+            return { ...state, user: "HIRER" }
         }
 
         case "SET_UA": {
-            return { ...state, user : "UA"}
+            return { ...state, user: "UA" }
         }
 
-        case "UPDATE_DIM" : {
-            return { 
-                ...state, dim : {
-                        h : window.innerHeight,
-                        w : window.innerWidth
-                    }
+        case "UPDATE_DIM": {
+            return {
+                ...state, dim: {
+                    h: window.innerHeight,
+                    w: window.innerWidth
                 }
+            }
         }
-        
-        default : 
+
+        default:
             return state
     }
 }
@@ -40,5 +42,6 @@ const client = (state = {
 export default combineReducers({
     loader,
     main,
-    client
+    client,
+    maid
 })

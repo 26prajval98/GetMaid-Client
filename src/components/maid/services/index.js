@@ -1,40 +1,40 @@
 import React from 'react'
 import ShowService from './showservices'
+import { changeAddService, addService } from '../../../actions/maid';
 
-var userServices = ["Something", "ajidasiyb"]
-var Pending = [
-    {
-        location: "Somewhere",
-        service : "Something"
-    }
-]
-
-export default function Service() {
+export default function Service(props) {
     return (
-        <div className="w3-cell w3-cell-bottom w3-mobile">
+        <div className="w3-cell w3-cell-middle w3-mobile">
             <div className="w3-card w3-margin w3-red" style={{ height: "250px", width: "80%", minWidth: "300px", overflowY: "auto" }}>
                 <p className="w3-xxlarge w3-center">Services Pending</p>
                 <ul>
                     {
-                        Pending.map(val => {
+                        props.pending.map((val, i) => {
                             return (
-                                <li className="w3-large">Location: {val.location} <br />Service  : {val.service}</li>
+                                <li className="w3-large" key={i}>Location: {val.location} <br />Service  : {val.service}</li>
                             )
                         })
                     }
                 </ul>
             </div>
-            <div className="w3-card-2 w3-margin w3-center" style={{ minHeight: "30%", width: "80%", minWidth: "300px" }}>
+            <div className="w3-card-2 w3-margin w3-center w3-display-container" style={{ minHeight: "200px", width: "80%", minWidth: "300px" }}>
                 <p className="w3-xlarge w3-text-blue">Services</p>
                 <div className="w3-row" style={{ minWidth: "80%" }}>
                     {
-                        userServices.map((val) => {
-                            return <ShowService work={val} />
+                        props.services.map((val) => {
+                            return <ShowService key={val.id} id={val.id} work={val.service_name} />
                         })
                     }
                 </div>
-                <div className="w3-container w3-center w3-padding">
-                    <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }}>+</button>
+                <div className="w3-container w3-center w3-padding w3-display-bottommiddle" style={{width : "100%"}}>
+                    <select className="w3-select w3-margin" style={{outline : "none", width : "60%"}} value={props.add} onChange={(e)=>{changeAddService(e.target.value)}}>
+                        <option>Cleaning</option>
+                        <option>Baby Sitting</option>
+                        <option>Washing Clothes</option>
+                        <option>Washing Utensils</option>
+                        <option>Gardening</option>
+                    </select>
+                    <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={()=>{addService()}}>+</button>
                     <span>Add</span>
                 </div>
             </div>

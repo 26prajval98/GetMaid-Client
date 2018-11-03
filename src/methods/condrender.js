@@ -8,7 +8,7 @@ export default function (Component, props, path){
 
     if(props.user === path){
         return(
-            <Component dim={props.dim} />
+            <Component info={props} />
         )
     }
     else{
