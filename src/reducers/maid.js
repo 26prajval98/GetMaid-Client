@@ -1,22 +1,31 @@
+import { locality, pincodes } from "../methods/config";
+
 const maid = (state = {
     details: {
-        Name: "ProP",
-        Phone: "9449642887",
-        Email: "abcd@gmail.com",
-        Pincode: "560079"
+        Name: "",
+        Phone: "",
+        Email: "",
+        Pincode: ""
     },
     services: [],
     pending: [],
     online: false,
     earnings: 0,
-    addService : "Cleaning"
-}, action ) => {
+    addService: "Cleaning",
+    showSettings: false,
+    editable: false,
+    addr: locality[0]
+}, action) => {
 
     var online
     var addService
+    var showSettings
+    var editable
+    var details
+    var addr
     switch (action.type) {
         case "GET_DETAILS":
-            var details = action.details
+            details = action.details
             return { ...state, details }
         case "GET_SERVICES":
             var services = action.services
@@ -30,9 +39,39 @@ const maid = (state = {
         case "TOGGLE_ONLINE":
             online = !state.online
             return { ...state, online }
+        case "SHOW_SETTINGS":
+            showSettings = true
+            return { ...state, showSettings }
+        case "CLOSE_SETTINGS":
+            showSettings = false
+            return { ...state, showSettings }
+        case "SET_EDITABLE":
+            editable = true
+            return { ...state, editable }
+        case "DONE_EDITABLE":
+            editable = false
+            return { ...state, editable }
         case "CHANGE_ADD_SERVICE":
             addService = action.addService
-            return { ...state, addService}
+            return { ...state, addService }
+        case "CHANGE_NAME":
+            details = { ...state.details }
+            details.Name = action.Name
+            return { ...state, details }
+        case "CHANGE_PHONE":
+            details = { ...state.details }
+            details.Phone = action.Phone
+            return { ...state, details }
+        case "CHANGE_EMAIL":
+            details = { ...state.details }
+            details.Email = action.Email
+            return { ...state, details }
+        case "CHANGE_ADDRESS":
+            addr = locality[action.idx]
+            details = { ...state.details }
+            details.Pincode = pincodes[action.idx]
+            return { ...state, details, addr }
+
         default:
             return { ...state }
     }

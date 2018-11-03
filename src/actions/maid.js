@@ -39,6 +39,30 @@ const toggleOnline = () => {
     })
 }
 
+const showSettings = () => {
+    return store.dispatch({
+        type : "SHOW_SETTINGS"
+    })
+}
+
+const closeSettings = () => {
+    return store.dispatch({
+        type : "CLOSE_SETTINGS"
+    })
+}
+
+const showEditable = () => {
+    return store.dispatch({
+        type : "SET_EDITABLE"
+    })
+}
+
+const doneEditable = () => {
+    return store.dispatch({
+        type : "DONE_EDITABLE"
+    })
+}
+
 const getAllMaid = ()=>{
     Axios.all([httpGet("maidservices"), httpGet("details")])
     .then(Axios.spread((services, details)=>{
@@ -93,5 +117,9 @@ export {
     getAllMaid,
     deleteService,
     changeAddService,
-    addService
+    addService,
+    showSettings,
+    closeSettings,
+    showEditable,
+    doneEditable
 }

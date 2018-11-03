@@ -19,15 +19,15 @@ export default function Service(props) {
             </div>
             <div className="w3-card-2 w3-margin w3-center w3-display-container" style={{ minHeight: "200px", width: "80%", minWidth: "300px" }}>
                 <p className="w3-xlarge w3-text-blue">Services</p>
-                <div className="w3-row" style={{ minWidth: "80%" }}>
+                <div className="w3-row" style={{ minWidth: "80%", overflowY : "auto"}}>
                     {
                         props.services.map((val) => {
                             return <ShowService key={val.id} id={val.id} work={val.service_name} />
                         })
                     }
                 </div>
-                <div className="w3-container w3-center w3-padding w3-display-bottommiddle" style={{width : "100%"}}>
-                    <select className="w3-select w3-margin" style={{outline : "none", width : "60%"}} value={props.add} onChange={(e)=>{changeAddService(e.target.value)}}>
+                <div className="w3-container w3-center w3-padding w3-display-bottommiddle w3-hide-small" style={{width : "100%"}}>
+                    <select className="w3-select w3-margin" style={{outline : "none", width : "50%"}} value={props.add} onChange={(e)=>{changeAddService(e.target.value)}}>
                         <option>Cleaning</option>
                         <option>Baby Sitting</option>
                         <option>Washing Clothes</option>
@@ -36,6 +36,16 @@ export default function Service(props) {
                     </select>
                     <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={()=>{addService()}}>+</button>
                     <span>Add</span>
+                </div>
+                <div className="w3-container w3-center w3-padding w3-hide-large w3-hide-medium" style={{width : "100%"}}>
+                    <select className="w3-select w3-margin" style={{outline : "none", width : "50%"}} value={props.add} onChange={(e)=>{changeAddService(e.target.value)}}>
+                        <option>Cleaning</option>
+                        <option>Baby Sitting</option>
+                        <option>Washing Clothes</option>
+                        <option>Washing Utensils</option>
+                        <option>Gardening</option>
+                    </select>
+                    <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={()=>{addService()}}>+</button>
                 </div>
             </div>
         </div>
