@@ -1,8 +1,10 @@
 import store from '../stores'
 import * as loader from "./loader"
 
-import setCookie from "../methods/cookies"
-import { httpGet, httpPost } from "../methods/axios";
+import setCookie, {getCookie} from "../methods/cookies"
+import qs from "querystring"
+import axios from "axios"
+import url from "../methods/config"
 
 const showLogIn = () => {
     return store.dispatch({
@@ -87,7 +89,11 @@ const resetLogin = () => {
 }
 
 const auth = () => {
-    httpGet("ismaid")
+    axios.get(url + "ismaid", {
+        headers: {
+            Authorization: "Bearer " + getCookie("token")
+        }
+    })
         .then(res => {
             if (res.data.success) {
                 setMaid()
@@ -96,7 +102,7 @@ const auth = () => {
                 setHirer()
             }
             resetLogin()
-            loader.unsetLoader()
+            return
         })
         .catch(err => {
             console.log("Something Went Wrong. Please Try Later")
@@ -105,7 +111,16 @@ const auth = () => {
 
 const loginAuth = () => {
     loader.setLoader()
-    httpPost(store.getState().main.loginDetails)
+    axios.post(url + "login",
+        qs.stringify(store.getState().main.loginDetails),
+        {
+            headers:
+            {
+                'cache-control': 'no-cache',
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        }
+    )
         .then(res => {
             var jb = res.data
             if (!jb.success) {
@@ -118,6 +133,7 @@ const loginAuth = () => {
                 setCookie(jb.msg, 4)
                 auth()
             }
+            loader.unsetLoader()
         })
         .catch(err => {
             alert("Something went wrong")

@@ -11,8 +11,13 @@ const headers = {
 }
 
 const httpGet = (path) => {
+    console.log(getCookie("token"))
     return axios.get(url + path, {
-        headers
+        headers : {
+            Authorization: "Bearer " + getCookie("token"),
+            'cache-control': 'no-cache',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
     })
 }
 

@@ -47,6 +47,10 @@ function RenderFunctionalComponenets(props) {
 
 
 class Home extends Component {
+    constructor(){
+        super()
+        actionMaid.getAllMaid()
+    }
     render() {
         return (
             <div>

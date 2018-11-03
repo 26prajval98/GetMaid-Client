@@ -1,10 +1,11 @@
 import store from '../stores'
 import Axios from 'axios';
 import { httpGet, httpDelete, httpPost } from '../methods/axios';
-import { deleteAll } from '../methods/cookies';
 import { unsetLoader } from './loader';
+import { deleteAll } from '../methods/cookies';
 
 const getDetails = (details) => {
+    console.log(details)
     return store.dispatch({
         type: "GET_DETAILS",
         details
@@ -41,6 +42,7 @@ const toggleOnline = () => {
 const getAllMaid = ()=>{
     Axios.all([httpGet("maidservices"), httpGet("details")])
     .then(Axios.spread((services, details)=>{
+        console.log(services.data)
         getServices(services.data.services)
         getDetails(details.data)
         unsetLoader()
