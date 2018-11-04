@@ -1,4 +1,5 @@
 import { locality, pincodes } from "../methods/config";
+import { httpDelete, httpGet } from "../methods/axios";
 
 const maid = (state = {
     details: {
@@ -9,7 +10,7 @@ const maid = (state = {
     },
     services: [],
     pending: [],
-    online: false,
+    online: true,
     earnings: 0,
     addService: "Cleaning",
     showSettings: false,
@@ -30,14 +31,22 @@ const maid = (state = {
         case "GET_SERVICES":
             var services = action.services
             return { ...state, services }
+        case "GET_PENDING":
+            var pending = action.pending
+            return { ...state, pending }
         case "GET_ONLINE":
-            online = action.online
+            online = true
+            httpGet("maidonline")
             return { ...state, online }
         case "GET_EARNINGS":
             var earnings = action.earnings
             return { ...state, earnings }
         case "TOGGLE_ONLINE":
             online = !state.online
+            if (online)
+                httpGet("maidonline")
+            else
+                httpDelete("maidonline")
             return { ...state, online }
         case "SHOW_SETTINGS":
             showSettings = true
@@ -47,7 +56,7 @@ const maid = (state = {
             return { ...state, showSettings }
         case "SET_EDITABLE":
             editable = true
-            details = {...state.details}
+            details = { ...state.details }
             details.Pincode = pincodes[0]
             return { ...state, editable, details }
         case "DONE_EDITABLE":

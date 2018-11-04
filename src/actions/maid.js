@@ -38,6 +38,11 @@ const toggleOnline = () => {
     })
 }
 
+const logout = ()=>{
+    deleteAll()
+    window.location.href = "/"
+}
+
 const showSettings = () => {
     return store.dispatch({
         type : "SHOW_SETTINGS"
@@ -62,15 +67,23 @@ const doneEditable = () => {
     })
 }
 
+const doneEditableAndSave = ()=>{
+    doneEditable()
+    var obj = { ...store.getState().maid.details, addr : store.getState().maid.addr}
+    httpPost("details", obj)
+}
+
 const getAllMaid = ()=>{
-    Axios.all([httpGet("maidservices"), httpGet("details")])
-    .then(Axios.spread((services, details)=>{
+    Axios.all([httpGet("maidservices"), httpGet("details"), httpGet("maidonline"), httpGet("pending"), httpGet("earnings")])
+    .then(Axios.spread((services, details, online, pending, earnings)=>{
         getServices(services.data.services)
         getDetails(details.data)
+        getPending(pending.data)
+        getEarnings(earnings.data.earnings)
         unsetLoader()
-    }))
+    })) 
     .catch((err)=>{
-        console.log("Something went wrong")
+        alert("Something went wrong")
         deleteAll()
         window.location.href = "/"
     })
@@ -133,6 +146,23 @@ const changeAddr = (idx)=>{
     })
 }
 
+const getPending = (pending)=>{
+    return store.dispatch({
+        type : "GET_PENDING",
+        pending
+    })
+}
+
+const updatePending = ()=>{
+    httpGet("pending")
+    .then((pending)=>{
+        getPending(pending.data)
+    })
+    .catch(err=>{
+        console.log("Something went wrong")
+    })
+}
+
 export {
     getDetails,
     getServices,
@@ -150,5 +180,8 @@ export {
     changeName,
     changePhone,
     changeEmail,
-    changeAddr
+    changeAddr,
+    doneEditableAndSave,
+    updatePending,
+    logout
 }
