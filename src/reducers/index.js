@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { loader } from './loader'
 import { main } from './main'
 import { maid } from './maid'
-
+import { signup } from './signup'
 
 const client = (state = {
     user: "UA",
@@ -43,5 +43,6 @@ export default combineReducers({
     loader,
     main,
     client,
-    maid
+    maid,
+    signup
 })

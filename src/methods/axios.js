@@ -25,6 +25,7 @@ const httpDelete = (path) => {
 }
 
 const httpPost = (path, data) => {
+    console.log(qs.stringify(data), data)
     return axios.post(url + path, qs.stringify(data), {
         headers: {
             'Authorization': "Bearer " + getCookie("token"),

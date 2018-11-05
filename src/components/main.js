@@ -4,20 +4,34 @@ import { Redirect } from "react-router-dom"
 
 import logo from "../images/logo/logo.png"
 
-import { main as actionMain } from "../actions"
 import { getCookie } from '../methods/cookies';
+import { locality } from "../methods/config"
+
 import { auth } from '../actions/main';
+import { main as actionMain } from "../actions"
+import * as actionSignup from "../actions/signup"
 
 function mapStateToProps(state) {
-    return {
-        login: state.main.login,
-        signup: state.main.signup,
-        loginDetails: state.main.loginDetails,
-        success: state.main.success,
-        msg: state.main.msg,
-        user: state.client.user
+        return {
+            login: state.main.login,
+            signup: state.main.signup,
+            loginDetails: state.main.loginDetails,
+            success: state.main.success,
+            msg: state.main.msg,
+            user: state.client.user,
+            Phone: state.signup.signup.Phone,
+            Name : state.signup.signup.Name,
+            Password: state.signup.signup.Password,
+            Repassword: state.signup.signup.Repassword,
+            Email: state.signup.signup.Email,
+            HouseNo: state.signup.signup.HouseNo,
+            Locality: state.signup.signup.Locality,
+            PinCode: state.signup.signup.PinCode,
+            IsMaid: state.signup.signup.IsMaid,
+            msgSignup : state.signup.msg,
+            successSignup : state.signup.success
+        }
     }
-}
 
 function showMsg(msg, success) {
     if (!success) {
@@ -71,25 +85,33 @@ function renderStuff(props) {
         }
         if (props.signup) {
             return (
-                <div className="w3-modal w3-show">
+                <div className="w3-modal w3-show w3-center">
                     <div className="w3-modal-content w3-animate-top w3-card-4">
                         <header className="w3-container">
                             <span onClick={() => actionMain.closeSignup()} className="w3-button w3-display-topright w3-button-white w3-hover-none">&times;</span>
                         </header>
                         <div className="w3-container w3-padding-large w3-center">
-                            <input placeholder="Email" className="w3-input w3-center" style={{ outline: "none" }} />
-                            <input placeholder="Password" type="password" className="w3-input w3-center" style={{ outline: "none" }} />
-                            <input placeholder="Retype Password" type="password" className="w3-input w3-center" style={{ outline: "none" }} />
-                            <input placeholder="Phone Number" type="number" className="w3-input w3-center w3-margin-top" style={{ outline: "none" }} min={10000000000} max={9999999999} />
-                            <input placeholder="Name" className="w3-input w3-center" style={{ outline: "none" }} />
-                            <input placeholder="House No" className="w3-input w3-center" style={{ outline: "none" }} />
-                            <input placeholder="Locality" className="w3-input w3-center" style={{ outline: "none" }} min={10000000000} max={9999999999} />
-                            <input placeholder="Pincode" className="w3-input w3-center" style={{ outline: "none" }} disabled={true} />
+                            <input value={props.Phone} onChange={(e)=>{actionSignup.changePhone(e.target.value)}} placeholder="Phone Number" type="text" className="w3-input w3-center w3-margin-top" style={{ outline: "none" }} />
+                            <input value={props.Name} onChange={(e)=>{actionSignup.changeName(e.target.value)}} placeholder="Name" className="w3-input w3-center" style={{ outline: "none" }} />
+                            <input value={props.Password} onChange={(e)=>{actionSignup.changePassword(e.target.value)}} placeholder="Password" type="password" className="w3-input w3-center" style={{ outline: "none" }} />
+                            <input value={props.Repassword} onChange={(e)=>{actionSignup.changeRepassword(e.target.value)}} placeholder="Retype Password" type="password" className="w3-input w3-center" style={{ outline: "none" }} />
+                            <input value={props.Email} onChange={(e)=>{actionSignup.changeEmail(e.target.value)}} placeholder="Email" className="w3-input w3-center" style={{ outline: "none" }} />
+                            <input value={props.HouseNo}onChange={(e)=>{actionSignup.changeHouse(e.target.value)}}  placeholder="House No / Landmark" className="w3-input w3-center" style={{ outline: "none" }} />
+                            <label>Locality :</label>
+                            <select value={props.Locality} onChange={(e)=>{ actionSignup.changeLocality(e.target.value)}} className="w3-select" style={{ width: "40%", outline: "none", textAlign: "center" }}>
+                                {locality.map((v, i) => {
+                                    return (
+                                        <option className="w3-center" key={i}>{v}</option>
+                                    )
+                                })}
+                            </select>
+                            <input value={props.PinCode} placeholder="Pincode" className="w3-input w3-center" style={{ outline: "none" }} disabled={true} />
                             <div className="W3-margin w3-padding">
-                                <input type="checkbox" className="w3-padding" /> <label>Maid</label>
+                                <input type="checkbox" className="w3-padding" onChange={()=>actionSignup.changeMaid()} checked={props.IsMaid === 1} /> <label>Maid</label>
                             </div>
-                            <button className="w3-margin w3-padding w3-button">Signup</button>
+                            <button className="w3-margin w3-padding w3-button" onClick={()=>{actionSignup.signup()}}>Signup</button>
                         </div>
+                        {showMsg(props.msgSignup, props.successSignup)}
                         <footer className="w3-container">
                             <p className="w3-tiny w3-center">GetMaid</p>
                         </footer>

@@ -1,6 +1,6 @@
 const main = (state = {
     login : false,
-    signup : false,
+    signup : true,
     loginDetails : {
         // EmailOrPhone : "9481315398",
         // Password : "abcde12345",
