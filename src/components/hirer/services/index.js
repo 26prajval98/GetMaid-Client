@@ -1,8 +1,6 @@
 import React from 'react'
 import Show from "./showservices"
 
-var pending = [1]
-
 export default function Service(props) {
     return (
         <div className="w3-container">
@@ -10,9 +8,9 @@ export default function Service(props) {
                 <p className="w3-xxlarge w3-center">Services Pending</p>
                 <ul>
                     {
-                        pending.map((val, i) => {
+                        props.pending.map((val) => {
                             return (
-                                <Show image="" Name="ashda" Phone="ajhvdgajs" work="absv" />
+                                <Show image="" Name={val.Name} Phone={val.Phone} work={val.work} key={val.sid} id={val.sid} />
                             )
                         })
                     }

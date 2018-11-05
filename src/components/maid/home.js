@@ -59,10 +59,10 @@ class Home extends Component {
     componentDidMount() {
         if (!this.props.loaded)
             actionMaid.getAllMaid()
-        else
-            setInterval(() => {
-                actionMaid.updatePending()
-            }, 10 * 1000)
+    
+        setInterval(() => {
+            actionMaid.updatePending()
+        }, 10 * 1000)
     }
 
     render() {

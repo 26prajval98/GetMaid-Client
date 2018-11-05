@@ -16,9 +16,9 @@ function mapStateToProps(state) {
         addService: state.hirer.addService,
         editable: state.hirer.editable,
         addr: state.hirer.addr,
+        all : state.hirer.all
     }
 }
-
 
 function RenderFunctionalComponenets(props) {
     return (
@@ -33,15 +33,13 @@ function RenderFunctionalComponenets(props) {
     )
 }
 
-
 class Home extends Component {
     componentDidMount() {
         if (!this.props.loaded)
             actionHirer.getAllHirer()
-        else
-            setInterval(() => {
-                actionHirer.updatePending()
-            }, 10 * 1000)
+        setInterval(() => {
+            actionHirer.updatePending()
+        }, 10 * 1000)
     }
 
     render() {

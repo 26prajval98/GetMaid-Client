@@ -35,6 +35,8 @@ const doneEditableAndSave = () => {
     httpPost("details", obj)
 }
 
+// const getA
+
 const getAllHirer = () => {
     httpGet("/verify")
         .then(res => {
@@ -50,6 +52,9 @@ const getAllHirer = () => {
                         unsetLoader()
                         setLoaded()
                     }))
+                    .then(()=>{
+                        updateAll()
+                    })
                     .catch((err) => {
                         addAlert(false, "Something went wrong")
                         deleteAll()
@@ -118,6 +123,23 @@ const getPending = (pending) => {
     })
 }
 
+const getAll = (all) => {
+    return store.dispatch({
+        type: "GET_ALL",
+        all
+    })
+}
+
+const updateAll = () => {
+    httpGet("all")
+        .then((pending) => {
+            getAll(pending.data)
+        })
+        .catch(err => {
+            console.log("Something went wrong")
+        })
+}
+
 const updatePending = () => {
     httpGet("pending")
         .then((pending) => {
@@ -141,5 +163,6 @@ export {
     doneEditableAndSave,
     updatePending,
     logout,
-    searchService
+    searchService,
+    updateAll
 }

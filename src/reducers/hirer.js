@@ -8,6 +8,7 @@ const hirer = (state = {
         Pincode: "",
     },
     pending: [],
+    all: [],
     searchService: "Cleaning",
     editable: false,
     addr: locality[0]
@@ -24,6 +25,9 @@ const hirer = (state = {
         case "GET_PENDING":
             var pending = action.pending
             return { ...state, pending }
+        case "GET_ALL":
+            var all = action.all
+            return { ...state, all }
         case "SET_EDITABLE":
             editable = true
             details = { ...state.details }

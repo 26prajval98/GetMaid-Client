@@ -174,7 +174,9 @@ const updatePending = () => {
             getPending(pending.data)
         })
         .catch(err => {
-            console.log("Something went wrong")
+            alert("Something went wrong")
+            logout()
+            window.location.href = "/"
         })
 }
 
