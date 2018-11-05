@@ -1,6 +1,7 @@
 import React from 'react'
 
 import user from "../../../images/user/user.png"
+import {done} from "../../../actions/hirer"
 
 export default function Showservice(props) {
     var imageURL = ""
@@ -16,7 +17,7 @@ export default function Showservice(props) {
                     <span className="w3-padding-small w3-large" style={{ textAlign: "right" }}>Name : {props.Name}</span> <br />
                     <span className="w3-padding-small w3-large" style={{ textAlign: "right" }}>Phone : {props.Phone}</span> <br />
                     <span className="w3-padding-small w3-large" style={{ textAlign: "right" }}>Work : {props.work}</span> <br />
-                    <button className="w3-button">Done</button>
+                    <button className="w3-button" onClick={()=>{done(props.id)}}>Done</button>
                 </div>
             </div>
         </div>

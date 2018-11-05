@@ -162,6 +162,10 @@ const updatePending = () => {
         })
 }
 
+const done = (id)=>{
+    httpGet("done?id=")
+}
+
 export {
     getDetails,
     showEditable,
@@ -178,5 +182,6 @@ export {
     searchService,
     updateAll,
     showAll,
-    closeAll
+    closeAll,
+    done
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { locality } from "../../../methods/config";
 
-import { showEditable, doneEditableAndSave, changeName, changePhone, changeEmail, changeAddr, logout, searchService, changeSearchService, showAll } from '../../../actions/hirer';
+import { showEditable, doneEditableAndSave, changeName, changePhone, changeEmail, changeAddr, logout, searchService, changeSearchService } from '../../../actions/hirer';
 
 function conditionalButtons(editable) {
     if (!editable) {
@@ -76,7 +76,7 @@ export default function User(props) {
                     </select>
                     <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={() => { searchService() }}><i className="fa fa-search" aria-hidden="true"></i></button>
                     <br />
-                    <button className="w3-button w3-margin" onClick={() => { showAll() }}>Previous services</button>
+                    {/* <button className="w3-button w3-margin" onClick={() => { showAll() }}>Previous services</button> */}
                 </div>
                 <div className="w3-container w3-center w3-padding w3-hide-large" style={{ width: "100%" }}>
                     <select className="w3-select w3-margin" style={{ outline: "none", width: "50%" }} value={props.add} onChange={(e) => { changeSearchService(e.target.value) }}>
