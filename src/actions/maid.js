@@ -75,21 +75,32 @@ const doneEditableAndSave = () => {
 }
 
 const getAllMaid = () => {
-    Axios.all([httpGet("maidservices"), httpGet("details"), httpGet("maidonline"), httpGet("pending"), httpGet("earnings")])
-        .then(Axios.spread((services, details, online, pending, earnings) => {
-            getServices(services.data.services)
-            getDetails(details.data)
-            getPending(pending.data)
-            getEarnings(earnings.data.earnings)
-            unsetLoader()
-            unsetOtp()
-            setLoaded()
-        }))
-        .catch((err) => {
-            addAlert(false, "Something went wrong")
-            unsetOtp()
-            deleteAll()
-            unsetLoader()
+    httpGet("/verify")
+        .then(res => {
+            if (res.data.secret) {
+                deleteAll()
+                alert("Please login to verify your account")
+                window.location.href = "/"
+            }
+            else {
+                Axios.all([httpGet("maidservices"), httpGet("details"), httpGet("maidonline"), httpGet("pending"), httpGet("earnings")])
+                    .then(Axios.spread((services, details, online, pending, earnings) => {
+                        getServices(services.data.services)
+                        getDetails(details.data)
+                        getPending(pending.data)
+                        getEarnings(earnings.data.earnings)
+                        unsetLoader()
+                        unsetOtp()
+                        setLoaded()
+                    }))
+                    .catch((err) => {
+                        addAlert(false, "Something went wrong")
+                        unsetOtp()
+                        deleteAll()
+                        unsetLoader()
+                    })
+
+            }
         })
 }
 

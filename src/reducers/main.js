@@ -7,12 +7,12 @@ const main = (state = {
         Password: "",
         IsMaid: 0
     },
-    phoneVerify : false,
-    otp : "",
-    Secret : "",
+    phoneVerify: false,
+    otp: "",
+    Secret: "",
     success: true,
     msg: "",
-    loaded : false
+    loaded: false,
 }, action) => {
     var loginDetails
     var alerts
@@ -58,23 +58,23 @@ const main = (state = {
         case "SET_MSG": {
             return { ...state, msg: action.msg }
         }
-        
-        case "SET_OTP" : {
-            return { ...state, phoneVerify : true}
+
+        case "SET_OTP": {
+            return { ...state, phoneVerify: true }
         }
 
-        case "UNSET_OTP" : {
-            return { ...state, phoneVerify : false}
+        case "UNSET_OTP": {
+            return { ...state, phoneVerify: false }
         }
 
-        case "CHANGE_OTP" : {
+        case "CHANGE_OTP": {
             var otp = action.otp
-            return { ...state, otp}
+            return { ...state, otp }
         }
 
-        case "SET_SECRET" : {
+        case "SET_SECRET": {
             var Secret = action.Secret
-            return { ...state, Secret}
+            return { ...state, Secret }
         }
 
         case "RESET_LOGIN": {
@@ -87,18 +87,18 @@ const main = (state = {
         }
 
         case "ADD_ALERT": {
-            alerts = [ ...state.alerts ]
+            alerts = [...state.alerts]
             alerts.push(action.alert)
             return { ...state, alerts }
         }
 
         case "DELETE_ALERT":
-            alerts = [ ...state.alerts ]
+            alerts = [...state.alerts]
             alerts.splice(action.idx, 1)
             return { ...state, alerts }
-        
+
         case "SET_LOADED":
-            return { ...state, loaded : true}
+            return { ...state, loaded: true }
 
         default:
             return state

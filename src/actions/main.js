@@ -97,18 +97,20 @@ const auth = () => {
         }
     })
         .then(res => {
+            loader.unsetLoader()
+            resetLogin()
             if (res.data.success) {
                 setMaid()
             }
             else {
                 setHirer()
             }
-            loader.unsetLoader()
-            resetLogin()
             return
         })
         .catch(err => {
-            addAlert(false, "Something Went Wrong. Please Try Later")
+            console.log(err)
+            alert("You are not allowed")
+            window.location.href = "/"
         })
 }
 
@@ -126,15 +128,17 @@ const loginAuth = () => {
     )
         .then(res => {
             var jb = res.data
+            console.log(jb)
             if (!jb.success) {
                 setSuccess(false)
                 setMsg(jb.msg)
             }
             else if (jb.secret !== undefined) {
+                setMsg("")
                 setSuccess(true)
                 setOtp()
-                setCookie(jb.msg, 4)
                 setSecret(jb.secret)
+                setCookie(jb.msg, 4)
             }
             else {
                 setSuccess(true)
@@ -208,6 +212,7 @@ const verifyOtp = () => {
         .then(res => {
             var jr = res.data
             if (jr.success) {
+                unsetOtp()
                 setSecret("")
                 setMsg("")
                 auth()

@@ -57,6 +57,7 @@ function renderStuff(props) {
             <Verify msg={props.msg} otp={props.otp} />
         )
     }
+    
     if (props.user === "MAID") {
         return (
             <Redirect to="/maid" />
@@ -136,6 +137,7 @@ function renderStuff(props) {
 class main extends Component {
 
     componentWillMount() {
+        
         if (getCookie("token") !== "" && getCookie("token") !== undefined) {
             auth()
         }

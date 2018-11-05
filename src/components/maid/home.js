@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+
 import condrender from '../../methods/condrender';
 
 import User from "./settings"
@@ -21,9 +22,11 @@ function mapStateToProps(state) {
         showSettings: state.maid.showSettings,
         editable: state.maid.editable,
         addr: state.maid.addr,
-        earnings: state.maid.earnings
+        earnings: state.maid.earnings,
+        redirectToIndex: state.main.redirectToIndex
     }
 }
+
 
 function RenderFunctionalComponenets(props) {
     var e = props.info.earnings
@@ -60,8 +63,6 @@ class Home extends Component {
             setInterval(() => {
                 actionMaid.updatePending()
             }, 10 * 1000)
-
-
     }
 
     render() {
