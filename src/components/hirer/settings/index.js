@@ -2,7 +2,7 @@ import React from 'react'
 
 import { locality } from "../../../methods/config";
 
-import { showEditable, doneEditableAndSave, changeName, changePhone, changeEmail, changeAddr, logout, searchService, changeSearchService } from '../../../actions/hirer';
+import { showEditable, doneEditableAndSave, changeName, changePhone, changeEmail, changeAddr, logout, searchService, changeSearchService, showAll } from '../../../actions/hirer';
 
 function conditionalButtons(editable) {
     if (!editable) {
@@ -17,6 +17,30 @@ function conditionalButtons(editable) {
     }
 }
 
+// function conditional(all) {
+//     return (
+//         <div className="w3-modal w3-show">
+//             <div className="w3-modal-content" style={{ overflow: "auto" }}>
+//                 <table className="w3-table">
+//                     <tr>
+//                         <th>Name</th>
+//                         <th>Service</th>
+//                         <th>Phone</th>
+//                     </tr>
+//                     {all.map((v, i) => {
+//                         return (
+//                             <tr>
+//                                 <td>{v.Name}</td>
+//                                 <td>{v.work}</td>
+//                                 <td>{v.Phone}</td>
+//                             </tr>
+//                         )
+//                     })}
+//                 </table>
+//             </div>
+//         </div>
+//     )
+// }
 
 function renderOptions(editable) {
     if (editable) {
@@ -52,7 +76,7 @@ export default function User(props) {
                     </select>
                     <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={() => { searchService() }}><i className="fa fa-search" aria-hidden="true"></i></button>
                     <br />
-                    <button className="w3-button w3-margin">Previous services</button>
+                    <button className="w3-button w3-margin" onClick={() => { showAll() }}>Previous services</button>
                 </div>
                 <div className="w3-container w3-center w3-padding w3-hide-large" style={{ width: "100%" }}>
                     <select className="w3-select w3-margin" style={{ outline: "none", width: "50%" }} value={props.add} onChange={(e) => { changeSearchService(e.target.value) }}>
@@ -64,7 +88,7 @@ export default function User(props) {
                     </select>
                     <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={() => { searchService() }}><i className="fa fa-search" aria-hidden="true"></i></button>
                     <br />
-                    <button className="w3-button w3-margin">Previous services</button>
+                    {/* <button className="w3-button w3-margin">Previous services</button> */}
                 </div>
             </div>
             <div className="w3-container w3-padding w3-center w3-cell w3-mobile">
@@ -78,7 +102,7 @@ export default function User(props) {
                     {conditionalButtons(props.editable)}
                 </div>
             </div>
-            {/* {conditional(props.settings)} */}
+            {/* {conditional(props.all)} */}
         </div>
     )
 }

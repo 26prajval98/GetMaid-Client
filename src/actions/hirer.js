@@ -140,6 +140,18 @@ const updateAll = () => {
         })
 }
 
+const showAll = ()=>{
+    return store.dispatch({
+        type : "SHOW_ALL"
+    })
+}
+
+const closeAll = ()=>{
+    return store.dispatch({
+        type : "CLOSE_ALL"
+    })
+}
+
 const updatePending = () => {
     httpGet("pending")
         .then((pending) => {
@@ -164,5 +176,7 @@ export {
     updatePending,
     logout,
     searchService,
-    updateAll
+    updateAll,
+    showAll,
+    closeAll
 }
