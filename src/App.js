@@ -5,7 +5,10 @@ import { connect } from "react-redux"
 
 import Loader from "./components/loader";
 import Index from "./components/main"
+
 import * as Maid from "./components/maid"
+import * as Hirer from "./components/hirer"
+
 import Alert from "./components/alerts"
 
 function mapStateToProps(state) {
@@ -23,6 +26,7 @@ function render(isLoading) {
 					<div>
 						<Route exact path="/" component={Index} />
 						<Route exact path="/maid" component={Maid.Home} />
+						<Route exact path="/hirer" component={Hirer.Home} />
 					</div>
 				</Router>
 			</div>

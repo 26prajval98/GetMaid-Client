@@ -99,12 +99,13 @@ const auth = () => {
         .then(res => {
             loader.unsetLoader()
             resetLogin()
-            if (res.data.success) {
-                setMaid()
-            }
-            else {
-                setHirer()
-            }
+            if (res.data.success)
+                if (res.data.msg === "MAID") {
+                    setMaid()
+                }
+                else {
+                    setHirer()
+                }
             return
         })
         .catch(err => {
