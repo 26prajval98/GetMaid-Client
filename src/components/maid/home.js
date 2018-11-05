@@ -11,16 +11,17 @@ import "./maid.css"
 
 function mapStateToProps(state) {
     return {
+        loaded: state.main.loaded,
         user: state.client.user,
         details: state.maid.details,
         online: state.maid.online,
-        pending : state.maid.pending,
-        services : state.maid.services,
-        addService : state.maid.addService,
-        showSettings : state.maid.showSettings,
-        editable : state.maid.editable,
-        addr : state.maid.addr,
-        earnings : state.maid.earnings
+        pending: state.maid.pending,
+        services: state.maid.services,
+        addService: state.maid.addService,
+        showSettings: state.maid.showSettings,
+        editable: state.maid.editable,
+        addr: state.maid.addr,
+        earnings: state.maid.earnings
     }
 }
 
@@ -35,15 +36,15 @@ function RenderFunctionalComponenets(props) {
                         {/* <button className="w3-tiny w3-btn w3-hover-none w3-text-red">More</button> */}
                     </span>
                     <label className="switch w3-right">
-                        <input type="checkbox" onChange={()=>actionMaid.toggleOnline()} checked={props.info.online} />
+                        <input type="checkbox" onChange={() => actionMaid.toggleOnline()} checked={props.info.online} />
                         <span className="slider round" />
                         <br />
                     </label>
                     <span className="w3-right w3-tiny w3-text-red w3-margin">Go Online</span>
                 </div>
                 <div className="w3-cell-row w3-margin">
-                    <User details={props.info.details} settings={props.info.showSettings} editable={props.info.editable} addr={props.info.addr}/>
-                    <Service pending={props.info.pending} services={props.info.services} add={props.info.addService}/>
+                    <User details={props.info.details} settings={props.info.showSettings} editable={props.info.editable} addr={props.info.addr} />
+                    <Service pending={props.info.pending} services={props.info.services} add={props.info.addService} />
                 </div>
             </div>
         </div>
@@ -52,15 +53,15 @@ function RenderFunctionalComponenets(props) {
 
 
 class Home extends Component {
-    constructor(){
-        super()
-        actionMaid.getAllMaid()
-    }
+    componentDidMount() {
+        if (!this.props.loaded)
+            actionMaid.getAllMaid()
+        else
+            setInterval(() => {
+                actionMaid.updatePending()
+            }, 10 * 1000)
 
-    componentDidMount(){
-        setInterval(()=>{
-            actionMaid.updatePending()
-        }, 10*1000)
+
     }
 
     render() {

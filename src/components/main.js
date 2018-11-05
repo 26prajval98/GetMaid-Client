@@ -11,6 +11,8 @@ import { auth } from '../actions/main';
 import { main as actionMain } from "../actions"
 import * as actionSignup from "../actions/signup"
 
+import Verify from "../components/verify"
+
 function mapStateToProps(state) {
     return {
         login: state.main.login,
@@ -29,7 +31,9 @@ function mapStateToProps(state) {
         PinCode: state.signup.signup.PinCode,
         IsMaid: state.signup.signup.IsMaid,
         msgSignup: state.signup.msg,
-        successSignup: state.signup.success
+        successSignup: state.signup.success,
+        phoneVerify: state.main.phoneVerify,
+        otp: state.main.otp
     }
 }
 
@@ -48,7 +52,11 @@ function showMsg(msg, success) {
 }
 
 function renderStuff(props) {
-
+    if (props.phoneVerify) {
+        return (
+            <Verify msg={props.msg} otp={props.otp} />
+        )
+    }
     if (props.user === "MAID") {
         return (
             <Redirect to="/maid" />
@@ -99,7 +107,7 @@ function renderStuff(props) {
                             <input value={props.HouseNo} onChange={(e) => { actionSignup.changeHouse(e.target.value) }} placeholder="House No / Landmark" className="w3-input w3-center" style={{ outline: "none" }} />
                             <div className="w3-margin w3-padding">
                                 <label>Locality :</label>
-                                <select value={props.Locality} onChange={(e) => { actionSignup.changeLocality(e.target.value) }} className="w3-select w3-center w3-margin" style={{ width: "40%", outline: "none", textAlignLast:"center" }}>
+                                <select value={props.Locality} onChange={(e) => { actionSignup.changeLocality(e.target.value) }} className="w3-select w3-center w3-margin" style={{ width: "40%", outline: "none", textAlignLast: "center" }}>
                                     {locality.map((v, i) => {
                                         return (
                                             <option key={i}>{v}</option>
@@ -128,7 +136,7 @@ function renderStuff(props) {
 class main extends Component {
 
     componentWillMount() {
-        if (getCookie("token") !== "") {
+        if (getCookie("token") !== "" && getCookie("token") !== undefined) {
             auth()
         }
 

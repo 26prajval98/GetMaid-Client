@@ -1,17 +1,18 @@
 const main = (state = {
-    login: false,
-    signup: true,
+    login: true,
+    signup: false,
     alerts: [],
     loginDetails: {
-        // EmailOrPhone : "9481315398",
-        // Password : "abcde12345",
-        // IsMaid : 1
         EmailOrPhone: "",
         Password: "",
         IsMaid: 0
     },
+    phoneVerify : false,
+    otp : "",
+    Secret : "",
     success: true,
-    msg: ""
+    msg: "",
+    loaded : false
 }, action) => {
     var loginDetails
     var alerts
@@ -57,12 +58,27 @@ const main = (state = {
         case "SET_MSG": {
             return { ...state, msg: action.msg }
         }
+        
+        case "SET_OTP" : {
+            return { ...state, phoneVerify : true}
+        }
+
+        case "UNSET_OTP" : {
+            return { ...state, phoneVerify : false}
+        }
+
+        case "CHANGE_OTP" : {
+            var otp = action.otp
+            return { ...state, otp}
+        }
+
+        case "SET_SECRET" : {
+            var Secret = action.Secret
+            return { ...state, Secret}
+        }
 
         case "RESET_LOGIN": {
             loginDetails = {
-                // EmailOrPhone : "9481315398",
-                // Password : "abcde12345",
-                // IsMaid : 1
                 EmailOrPhone: "",
                 Password: "",
                 IsMaid: 0
@@ -80,6 +96,9 @@ const main = (state = {
             alerts = [ ...state.alerts ]
             alerts.splice(action.idx, 1)
             return { ...state, alerts }
+        
+        case "SET_LOADED":
+            return { ...state, loaded : true}
 
         default:
             return state

@@ -5,6 +5,8 @@ import setCookie, { getCookie } from "../methods/cookies"
 import qs from "querystring"
 import axios from "axios"
 import url from "../methods/config"
+import { httpPost } from '../methods/axios';
+import { logout } from './maid'
 
 const showLogIn = () => {
     return store.dispatch({
@@ -101,11 +103,12 @@ const auth = () => {
             else {
                 setHirer()
             }
+            loader.unsetLoader()
             resetLogin()
             return
         })
         .catch(err => {
-            console.log("Something Went Wrong. Please Try Later")
+            addAlert(false, "Something Went Wrong. Please Try Later")
         })
 }
 
@@ -126,6 +129,12 @@ const loginAuth = () => {
             if (!jb.success) {
                 setSuccess(false)
                 setMsg(jb.msg)
+            }
+            else if (jb.secret !== undefined) {
+                setSuccess(true)
+                setOtp()
+                setCookie(jb.msg, 4)
+                setSecret(jb.secret)
             }
             else {
                 setSuccess(true)
@@ -163,6 +172,64 @@ const addAlert = (success, msg) => {
     })
 }
 
+const setOtp = () => {
+    store.dispatch({
+        type: "SET_OTP"
+    })
+}
+
+const changeOtp = (otp) => {
+    store.dispatch({
+        type: "CHANGE_OTP",
+        otp
+    })
+}
+
+const unsetOtp = () => {
+    store.dispatch({
+        type: "UNSET_OTP"
+    })
+}
+
+const setSecret = (Secret) => {
+    store.dispatch({
+        type: "SET_SECRET",
+        Secret
+    })
+}
+
+const verifyOtp = () => {
+    var otp = store.getState().main.otp
+    var Secret = store.getState().main.Secret
+
+    var data = { otp, Secret }
+
+    httpPost("verify", data)
+        .then(res => {
+            var jr = res.data
+            if (jr.success) {
+                setSecret("")
+                setMsg("")
+                auth()
+            }
+            else if (jr.msg === "OTP expired") {
+                setMsg("")
+                addAlert(false, "If token expired please login again")
+                unsetOtp()
+                logout()
+            }
+            else {
+                setMsg(jr.msg)
+            }
+        })
+}
+
+const setLoaded = () => {
+    store.dispatch({
+        type: "SET_LOADED"
+    })
+}
+
 export {
     showLogIn,
     closeLogIn,
@@ -177,5 +244,12 @@ export {
     setHirer,
     setUA,
     deleteAlert,
-    addAlert
+    addAlert,
+    setOtp,
+    unsetOtp,
+    changeOtp,
+    verifyOtp,
+    setLoaded,
+    setSuccess,
+    setSecret
 }
