@@ -1,5 +1,5 @@
 const main = (state = {
-    login: true,
+    login: false,
     signup: false,
     alerts: [],
     loginDetails: {
