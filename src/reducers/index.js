@@ -4,6 +4,7 @@ import { loader } from './loader'
 import { main } from './main'
 import { maid } from './maid'
 import { signup } from './signup'
+import { hirer } from './hirer'
 
 const client = (state = {
     user: "UA",
@@ -44,5 +45,6 @@ export default combineReducers({
     main,
     client,
     maid,
-    signup
+    signup,
+    hirer
 })

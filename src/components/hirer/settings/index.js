@@ -2,15 +2,7 @@ import React from 'react'
 
 import { locality } from "../../../methods/config";
 
-import user from "../../../images/user/user.png"
-import { showEditable, doneEditableAndSave, changeName, changePhone, changeEmail, changeAddr, logout } from '../../../actions/maid';
-
-// function conditional(show) {
-//     if (show === true)
-//         return (
-//             <Settings />
-//         )
-// }
+import { showEditable, doneEditableAndSave, changeName, changePhone, changeEmail, changeAddr, logout, searchService, changeSearchService } from '../../../actions/hirer';
 
 function conditionalButtons(editable) {
     if (!editable) {
@@ -24,6 +16,7 @@ function conditionalButtons(editable) {
         )
     }
 }
+
 
 function renderOptions(editable) {
     if (editable) {
@@ -46,11 +39,35 @@ function renderOptions(editable) {
 export default function User(props) {
     var details = props.details
     return (
-        <div className="w3-cell w3-mobile">
-            <div className="w3-container w3-center">
-                <img src={user} alt={"default"} className="w3-margin w3-circle" style={{ minWidth: "40px" }} />
+        <div className="w3-container w3-row">
+            <div className="w3-container w3-center w3-cell w3-mobile w3-cel-middle" style={{ minHeight: "200px", width: "800px", minWidth: "200px" }}>
+                <p className="w3-xlarge w3-text-blue">Find Maid</p>
+                <div className="w3-container w3-center w3-padding w3-hide-small w3-hide-medium" style={{ width: "100%" }}>
+                    <select className="w3-select w3-margin" style={{ outline: "none", width: "50%" }} value={props.add} onChange={(e) => { changeSearchService(e.target.value) }}>
+                        <option>Cleaning</option>
+                        <option>Baby Sitting</option>
+                        <option>Washing Clothes</option>
+                        <option>Washing Utensils</option>
+                        <option>Gardening</option>
+                    </select>
+                    <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={() => { searchService() }}><i className="fa fa-search" aria-hidden="true"></i></button>
+                    <br />
+                    <button className="w3-button w3-margin">Previous services</button>
+                </div>
+                <div className="w3-container w3-center w3-padding w3-hide-large" style={{ width: "100%" }}>
+                    <select className="w3-select w3-margin" style={{ outline: "none", width: "50%" }} value={props.add} onChange={(e) => { changeSearchService(e.target.value) }}>
+                        <option>Cleaning</option>
+                        <option>Baby Sitting</option>
+                        <option>Washing Clothes</option>
+                        <option>Washing Utensils</option>
+                        <option>Gardening</option>
+                    </select>
+                    <button className="w3-button w3-green w3-circle w3-margin w3-large" style={{ outline: "none" }} onClick={() => { searchService() }}><i className="fa fa-search" aria-hidden="true"></i></button>
+                    <br />
+                    <button className="w3-button w3-margin">Previous services</button>
+                </div>
             </div>
-            <div className="w3-container w3-margin w3-padding w3-center">
+            <div className="w3-container w3-padding w3-center w3-cell w3-mobile">
                 <div className="w3-small w3-center">Name <br /><strong><span className="w3-xlarge" onBlur={(e) => { changeName(e.target.innerText) }} contentEditable={props.editable} suppressContentEditableWarning="true" style={{ outline: "none" }} spellCheck={false}>{details.Name}</span></strong></div>
                 <div className="w3-small w3-center">Phone<br /><span className="w3-xlarge" contentEditable={props.editable} onBlur={(e) => { changePhone(e.target.innerText) }} suppressContentEditableWarning="true" style={{ outline: "none" }} spellCheck={false}><strong onChange={(e) => { }}>{details.Phone}</strong></span></div>
                 <div className="w3-small w3-center">Email<br style={{ width: "80px", outline: "none" }} /><span className="w3-xlarge" onBlur={(e) => { changeEmail(e.target.innerText) }} contentEditable={props.editable} suppressContentEditableWarning="true" style={{ outline: "none" }} spellCheck={false}><strong onChange={(e) => { }}>{details.Email}</strong></span></div>

@@ -1,12 +1,23 @@
 import React from 'react'
-import { deleteService } from '../../../actions/maid';
+
+import user from "../../../images/user/user.png"
 
 export default function Showservice(props) {
+    var imageURL = ""
+    if (props.image === "")
+        imageURL = user
     return (
         <div>
-            <div className="w3-col l4 m12 12">
-                <span className="w3-padding-small" style={{ textAlign: "right" }}>{props.work}</span>
-                <span><button className="w3-btn w3-hover-none w3-large w3-padding-small" style={{ outline: "none" }} onClick={()=>{deleteService(props.id)}}>×</button></span>
+            <div className="w3-col l4 m12 12 w3-padding w3-center">
+                <div className="w3-container">
+                    <img src={imageURL} alt="Maid" className="w3-image" width="100%" style={{ maxWidth: "200px" }} />
+                </div>
+                <div className="w3-container">
+                    <span className="w3-padding-small w3-large" style={{ textAlign: "right" }}>Name : {props.Name}</span> <br />
+                    <span className="w3-padding-small w3-large" style={{ textAlign: "right" }}>Phone : {props.Phone}</span> <br />
+                    <span className="w3-padding-small w3-large" style={{ textAlign: "right" }}>Work : {props.work}</span> <br />
+                    <button className="w3-button">Done</button>
+                </div>
             </div>
         </div>
     )

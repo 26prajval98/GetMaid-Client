@@ -6,7 +6,6 @@ const hirer = (state = {
         Phone: "",
         Email: "",
         Pincode: "",
-        House: ""
     },
     pending: [],
     searchService: "Cleaning",

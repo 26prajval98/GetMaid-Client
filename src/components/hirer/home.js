@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import condrender from '../../methods/condrender';
 
+import * as actionHirer from "../../actions/hirer"
 import User from "./settings"
 import Service from "./services"
 
@@ -10,16 +11,11 @@ function mapStateToProps(state) {
     return {
         loaded: state.main.loaded,
         user: state.client.user,
-        details: state.maid.details,
-        online: state.maid.online,
-        pending: state.maid.pending,
-        services: state.maid.services,
-        addService: state.maid.addService,
-        showSettings: state.maid.showSettings,
-        editable: state.maid.editable,
-        addr: state.maid.addr,
-        earnings: state.maid.earnings,
-        redirectToIndex: state.main.redirectToIndex
+        details: state.hirer.details,
+        pending: state.hirer.pending,
+        addService: state.hirer.addService,
+        editable: state.hirer.editable,
+        addr: state.hirer.addr,
     }
 }
 
@@ -39,14 +35,14 @@ function RenderFunctionalComponenets(props) {
 
 
 class Home extends Component {
-    // componentDidMount() {
-    //     if (!this.props.loaded)
-    //         actionMaid.getAllMaid()
-    //     else
-    //         setInterval(() => {
-    //             actionMaid.updatePending()
-    //         }, 10 * 1000)
-    // }
+    componentDidMount() {
+        if (!this.props.loaded)
+            actionHirer.getAllHirer()
+        else
+            setInterval(() => {
+                actionHirer.updatePending()
+            }, 10 * 1000)
+    }
 
     render() {
         return (
