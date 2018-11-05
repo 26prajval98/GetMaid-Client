@@ -67,6 +67,21 @@ const signup = (state = {
             return { ...state, msg, success}
         }
 
+        case "RESET_SIGNUP" : {
+            signup = {
+                Phone: "",
+                Name: "",
+                Password: "",
+                Repassword: "",
+                Email: "",
+                HouseNo: "",
+                Locality: locality[0],
+                PinCode: pincodes[0],
+                IsMaid: 0
+            }
+            return { ...state, signup}
+        }
+
         default:
             return state
     }

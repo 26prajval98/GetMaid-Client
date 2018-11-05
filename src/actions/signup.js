@@ -2,6 +2,7 @@ import store from '../stores'
 import { locality } from '../methods/config';
 import { setLoader, unsetLoader } from "./loader";
 import { httpPost } from '../methods/axios';
+import { addAlert, closeSignup } from './main';
 
 const changePhone = (Phone) => {
     return store.dispatch({
@@ -60,16 +61,29 @@ const setMsg = (msg)=>{
     })
 }
 
+const resetSignup = ()=>{
+    return store.dispatch({
+        type : "RESET_SIGNUP"
+    })
+}
+
 const signup = ()=>{
     setLoader()
-    httpPost("signup", store.getState().signup.signup)
+    httpPost("signup", { ...store.getState().signup.signup, City : "Bengaluru"})
     .then(res => {
+        console.log(res.data)
         if(!res.data.success){
             setMsg(res.data.msg)
         }
+        if(res.data.success){
+            addAlert(true, "Successfully Signed Up. Please Login to continue")
+            resetSignup()
+            closeSignup()
+        }
+        unsetLoader()
     })
-    unsetLoader()
 }
+
 export {
     changePhone,
     changeName,

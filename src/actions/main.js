@@ -1,7 +1,7 @@
 import store from '../stores'
 import * as loader from "./loader"
 
-import setCookie, {getCookie} from "../methods/cookies"
+import setCookie, { getCookie } from "../methods/cookies"
 import qs from "querystring"
 import axios from "axios"
 import url from "../methods/config"
@@ -148,6 +148,21 @@ const userLogin = () => {
     })
 }
 
+const deleteAlert = (idx) => {
+    store.dispatch({
+        type: "DELETE_ALERT",
+        idx
+    })
+}
+
+const addAlert = (success, msg) => {
+    var alert = { success, msg }
+    store.dispatch({
+        type: "ADD_ALERT",
+        alert
+    })
+}
+
 export {
     showLogIn,
     closeLogIn,
@@ -161,4 +176,6 @@ export {
     setMaid,
     setHirer,
     setUA,
+    deleteAlert,
+    addAlert
 }

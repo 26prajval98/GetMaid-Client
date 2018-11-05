@@ -6,10 +6,12 @@ import { connect } from "react-redux"
 import Loader from "./components/loader";
 import Index from "./components/main"
 import * as Maid from "./components/maid"
+import Alert from "./components/alerts"
 
 function mapStateToProps(state) {
 	return {
-		isLoading: state.loader.isLoading
+		isLoading: state.loader.isLoading,
+		alerts: state.main.alerts
 	}
 }
 
@@ -31,10 +33,19 @@ function render(isLoading) {
 		)
 }
 
+function renderAlerts(alerts) {
+	return alerts.map((v, i) => {
+		return (
+			<Alert msg={v.msg} success={v.success} key={i} id={i} />
+		)
+	})
+}
+
 class App extends Component {
 	render() {
 		return (
 			<div>
+				{renderAlerts(this.props.alerts)}
 				{render(this.props.isLoading)}
 			</div>
 		);
