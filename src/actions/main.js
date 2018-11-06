@@ -111,6 +111,7 @@ const auth = () => {
         .catch(err => {
             console.log(err)
             alert("You are not allowed")
+            logout()
             window.location.href = "/"
         })
 }

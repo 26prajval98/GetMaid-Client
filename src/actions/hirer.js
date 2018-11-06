@@ -69,7 +69,8 @@ const searchService = () => {
     httpGet("maidsearch?services=" + store.getState().hirer.searchService + "&pincode=" + store.getState().hirer.details.Pincode, {
     })
         .then(r => {
-            if (r.data.success){
+            console.log(r.data)
+            if (r.data.success === undefined){
                 addAlert(true, "Maids found. You will soon be updated")
             }
             else{
@@ -163,7 +164,7 @@ const updatePending = () => {
 }
 
 const done = (id)=>{
-    httpGet("done?id=")
+    httpGet("done?id="+id)
 }
 
 export {

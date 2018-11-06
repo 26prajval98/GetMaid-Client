@@ -35,8 +35,22 @@ const httpPost = (path, data) => {
     })
 }
 
+const httpImage = (name,data) => {
+
+    var formData = new FormData()
+    formData.append("imageFile", data)
+
+    return axios.post("https://localhost:8000/images?name="+name, formData, {
+        headers: {
+            'Authorization': "Bearer " + getCookie("token"),
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
 export {
     httpGet,
     httpPost,
-    httpDelete
+    httpDelete,
+    httpImage
 }

@@ -10,7 +10,7 @@ export default function Service(props) {
                     {
                         props.pending.map((val) => {
                             return (
-                                <Show image="" Name={val.Name} Phone={val.Phone} work={val.work} key={val.sid} id={val.sid} />
+                                <Show image="" Name={val.Name} Phone={val.Phone} work={val.work} key={val.sid} id={val.sid} mid={val.mid} />
                             )
                         })
                     }

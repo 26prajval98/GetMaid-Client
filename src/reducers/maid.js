@@ -8,6 +8,8 @@ const maid = (state = {
         Email: "",
         Pincode: ""
     },
+    maidid : "",
+    img: false,
     services: [],
     pending: [],
     online: true,
@@ -75,7 +77,12 @@ const maid = (state = {
             console.log(locality.indexOf(action.idx))
             details.Pincode = pincodes[locality.indexOf(action.idx)]
             return { ...state, details, addr }
-
+        case "SET_IMG":
+            return { ...state, img : true}
+        case "UNSET_IMG":
+            return { ...state, img : false}
+        case "GET_MAIDID":
+            return { ...state, maidid : action.maidid}
         default:
             return { ...state }
     }

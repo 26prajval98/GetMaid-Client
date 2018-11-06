@@ -74,6 +74,14 @@ const doneEditableAndSave = () => {
     httpPost("details", obj)
 }
 
+const changeImg = (img)=>{
+    console.log(img)
+    return store.dispatch({
+        type : "IMG_CHANGE",
+        img
+    })
+}
+
 const getAllMaid = () => {
     httpGet("/verify")
         .then(res => {
@@ -83,8 +91,8 @@ const getAllMaid = () => {
                 window.location.href = "/"
             }
             else {
-                Axios.all([httpGet("maidservices"), httpGet("details"), httpGet("maidonline"), httpGet("pending"), httpGet("earnings")])
-                    .then(Axios.spread((services, details, online, pending, earnings) => {
+                Axios.all([httpGet("maidservices"), httpGet("details"), httpGet("maidonline"), httpGet("pending"), httpGet("earnings"), httpGet("maidid")])
+                    .then(Axios.spread((services, details, online, pending, earnings, maidid) => {
                         getServices(services.data.services)
                         getDetails(details.data)
                         getPending(pending.data)
@@ -92,6 +100,7 @@ const getAllMaid = () => {
                         unsetLoader()
                         unsetOtp()
                         setLoaded()
+                        getMaidid(maidid.data)
                     }))
                     .catch((err) => {
                         addAlert(false, "Something went wrong")
@@ -180,6 +189,25 @@ const updatePending = () => {
         })
 }
 
+const showImageUpload = ()=>{
+    return store.dispatch({
+        type : "SET_IMG"
+    })
+}
+
+const closeImageUpload = ()=>{
+    return store.dispatch({
+        type : "UNSET_IMG"
+    })
+}
+
+const getMaidid = (maidid)=>{
+    return store.dispatch({
+        type : "GET_MAIDID",
+        maidid
+    })
+}
+
 export {
     getDetails,
     getServices,
@@ -200,5 +228,9 @@ export {
     changeAddr,
     doneEditableAndSave,
     updatePending,
-    logout
+    logout,
+    changeImg,
+    showImageUpload,
+    closeImageUpload,
+    getMaidid
 }

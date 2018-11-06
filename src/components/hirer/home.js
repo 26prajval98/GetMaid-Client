@@ -39,7 +39,7 @@ class Home extends Component {
             actionHirer.getAllHirer()
         setInterval(() => {
             actionHirer.updatePending()
-        }, 10 * 1000)
+        }, 2 * 1000)
     }
 
     render() {
