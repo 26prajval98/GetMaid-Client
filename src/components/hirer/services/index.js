@@ -4,9 +4,9 @@ import Show from "./showservices"
 export default function Service(props) {
     return (
         <div className="w3-container">
-            <div className="w3-card w3-margin w3-red" style={{ height: "300px", width: "100%", minWidth: "200px", overflowY: "auto" }}>
+            <div className="w3-card w3-red" style={{ height: "300px", width: "100%", minWidth: "200px", overflowY: "auto" }}>
                 <p className="w3-xxlarge w3-center">Services Pending</p>
-                <ul>
+                <div className="w3-row">
                     {
                         props.pending.map((val) => {
                             return (
@@ -14,7 +14,7 @@ export default function Service(props) {
                             )
                         })
                     }
-                </ul>
+                </div>
             </div>
         </div>
     )

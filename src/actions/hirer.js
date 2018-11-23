@@ -55,7 +55,7 @@ const getAllHirer = () => {
                     .then(()=>{
                         updateAll()
                     })
-                    .catch((err) => {
+                    .catch((err)=> {
                         addAlert(false, "Something went wrong")
                         deleteAll()
                         unsetLoader()
